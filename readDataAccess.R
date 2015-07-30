@@ -10,3 +10,5 @@ odbcGetInfo(mdbConnect)
 
 sqlTables(mdbConnect)
 dta <- sqlFetch(mdbConnect, 'tbl_sobotik') 
+
+odbcClose(mdbConnect)
