@@ -1,0 +1,17 @@
+plot;date;year_releve;month_releve;day_releve;geology;exp;hhl;cover;grasses;forbs;legumes;mosses;rock;location;latitude;longitude;accuracy;msm;observer;ID
+start11;2015-06-15;2015;6;15;Kristallin;Süd;30;100;80;18;2;;;Haberl;47.475003N;14.645392E;;1100;Blaschka;11
+start21;2015-06-25;2015;6;25;Kalk;Süd;45;95;70;20;5;;;Kölblalm;47.532242N;14.642114E;;1100;Blaschka;21
+start31;2015-06-25;2015;6;25;Kalk;Nord;60;100;50;47;3;;;Jägerhaus;47.567608N;14.705047E;;1100;Blaschka;31
+start41;2015-06-25;2015;6;25;Kristallin;Nord;60;100;65;20;15;;;Plodenau;47.517606N;14.642372E;;1100;Blaschka;41
+start51;;;;;Kristallin;Süd;;;;;;;;Bucheck;47.483103N;14.666438E;;1300;Blaschka;51
+start61;2015-07-09;2015;7;9;Kalk;Süd;50;95;74;20;1;5;;Pfarralm;47.532186N;14.664883E;;1300;Blaschka;61
+start71;2015-07-09;2015;7;9;Kalk;Nord;30;95;70;20;2;3;;Hüpflinger Alm;47.550513N;14.694811E;;1300;Blaschka;71
+start81;2015-07-09;2015;7;9;Kristallin;Nord;60;100;60;20;;20;;Grössinger Alm;47.508425N;14.659470E;;1300;Blaschka;81
+start91;2015-07-20;2015;7;20;Kristallin;Süd;60;99;80;19;1;;;Aigelsbrunn 1500;47.489222N;14.664837E;;1500;Blaschka;91
+start101;2015-07-09;2015;7;9;Kalk;Süd;75;95;50;35;;15;;Kuhfeld 1500;47.535258N;14.660841E;;1500;Blaschka;101
+start111;2015-07-22;2015;7;22;Kalk;Nord;20;90;65;25;1;;;Schwarzlacken;47.542517N;14.687281E;;1500;Blaschka;111
+start121;2015-07-20;2015;7;20;Kristallin;Nord;60;98;60;33;5;;;Moseralm;47.508406N;14.652086E;;1500;Blaschka;121
+start131;2015-07-31;2015;7;31;Kristallin;Süd;60;100;70;28;2;;;Aigelsbrunn 1700;47.495125N;14.662467E;;1700;Blaschka;131
+start141;2015-07-22;2015;7;22;Kalk;Süd;50;85;40;43;2;;;Kuhfeld 1700;47.538012N;14.660714E;;1700;Blaschka;141
+start151;2015-07-31;2015;7;31;Kalk;Nord;25;100;50;20;;30;;Hüpflinger Hals;47.539262N;14.686464E;;1700;Blaschka;151
+start161;2015-07-20;2015;7;20;Kristallin;Nord;60;95;52;40;3;;;Moserkogel;47.503016N;14.655420E;;1700;Blaschka;161
