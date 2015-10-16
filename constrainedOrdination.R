@@ -40,6 +40,44 @@ header.sc <- header[header$observer == 'Blaschka',]
 
 analysis.sb <- data.frame(header.sb$plot, header.sb$RFA, header.sb$NDF, header.sb$ADF, header.sb$ADL, header.sb$msm)
 names(analysis.sb) <- c('plot', 'RFA', 'NDF', 'ADF', 'ADL', 'msm')
+plot(analysis.sb, panel=panel.smooth)
+
+
+releves$cov <- gsub('[r]', 0.1, releves$cov)
+releves$cov <- gsub('[+]', 0.5, releves$cov)
+
+# cov ist Text, umwandlung zu Zahl 
+releves$cov <- as.numeric(releves$cov)
+releves.wide <- cast(releves, plot~abbr, value='cov')
+releves.wide[is.na(releves.wide)] <- 0
+row.names(releves.wide) <- releves.wide$plot
+releves.wide$plot <- NULL
+
+analysis <- data.frame(header$plot, header$RFA, header$NDF, header$ADF, header$ADL, header$msm)
+names(analysis) <- c('plot', 'RFA', 'NDF', 'ADF', 'ADL', 'msm')
+
+
+# Analyse Gesamt-Datensatz ----
+
+# Plot 'start51' keine Daten, wird in Kopf eliminiert
+
+header <- header[!is.na(header$RFA),]
+
+rankindex(scale(analysis$RFA), releves.wide, c("euc","man","bray","jac","kul"))
+dis <- vegdist(releves.wide, method = 'jaccard')
+adonis(dis ~  geology, header)
+
+cap <- capscale(releves.wide ~ geology + expo, header)
+cap
+ef <- envfit(cap, header$RFA * header$year_releve, strata = header$geology)
+plot(cap, display="sites")
+ordisurf(cap, header$RFA, add = TRUE, col = "green")
+#ordisurf(cap, header$msm, add = TRUE, col = "gray")
+ordihull(cap, header$geology, col="dodgerblue", label= TRUE )
+
+plot(ef)
+
+
 
 # Analyse Daten aus dem Almprojekt ----
 
@@ -50,14 +88,13 @@ names(analysis.sb) <- c('plot', 'RFA', 'NDF', 'ADF', 'ADL', 'msm')
 releves.sb$cov <- gsub('[r]', 0.1, releves.sb$cov)
 releves.sb$cov <- gsub('[+]', 0.5, releves.sb$cov)
 
-# cov ist Text, umwandlung zu Zahl (Int)
-releves.sb$cov <- as.integer(releves.sb$cov)
+# cov ist Text, umwandlung zu Zahl 
+releves.sb$cov <- as.numeric(releves.sb$cov)
 
 #Kreuztabelle
 releves.sb.wide <- cast(releves.sb, plot~abbr, value='cov')
 releves.sb.wide[is.na(releves.sb.wide)] <- 0
 
-# Artkürzel...
 
 cap.sb <- capscale(releves.sb.wide ~ RFA + NDF + ADF + ADL, header.sb)
 cap.sb
@@ -83,6 +120,6 @@ plot(ef)
 ordisurf(cap.sb, header.sb$RFA, add = TRUE, col = "green")
 ordisurf(cap.sb, header.sb$msm, add = TRUE, col = "gray")
 
-rankindex(scale(header.sb$msm), species.sb.wide, c("euc","man","bray","jac","kul"))
-dis <- vegdist(species.sb.wide, method = 'jaccard')
-adonis(dis ~ geology + msm, header.sb)
+rankindex(scale(header.sb$RFA), releves.sb.wide, c("euc","man","bray","jac","kul"))
+dis <- vegdist(releves.sb.wide, method = 'jaccard')
+adonis(dis ~ RFA * msm + geology, header.sb)
