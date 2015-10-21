@@ -81,44 +81,57 @@ hh.sc <- merge(x.sc,header.sc, by='plot')
 ### Almprojekt 1993 - 1996
 ##########################
 
-ad.sb <- adonis(dis.sb ~ year_releve * geology * msm, hh.sb, method = 'jaccard', permutations = 999, strata=hh.sb$msm)
+ad.sb <- adonis(dis.sb ~ year_releve * geology * msm, hh.sb, method = 'jaccard', permutations = 999, strata=hh.sb$geology)
 ad.sb
-be.sb <- betadisper(dis.sb, hh.sb$msm)
+be.sb <- betadisper(dis.sb, hh.sb$msm, bias.adjust = TRUE)
 be.sb
 plot(be.sb, main = "Almprojekt 1993 - 1996, nach Seehöhe")
 ordipointlabel(be.sb, display="centroids", add=TRUE)
+boxplot(be.sb, main="Distanz zum Zentroid, Almprojekt 1993 - 1996, gruppiert nach Seehöhe", xlab="Seehöhe")
+plot(TukeyHSD(be.sb))
 
 ### StartClim 2015, nach Seehöhe
 ################################
 
-ad.sc <- adonis(dis.sc ~ msm  * geology, hh.sc, method = 'jaccard', permutations = 999, strata=hh.sc$msm)
+ad.sc <- adonis(dis.sc ~ msm  * geology, hh.sc, method = 'jaccard', permutations = 999, strata=hh.sc$geology)
 ad.sc
-be.sc <- betadisper(dis.sc, hh.sc$msm)
+be.sc <- betadisper(dis.sc, hh.sc$msm, bias.adjust = TRUE)
 be.sc
 plot(be.sc, main = "StartClim 2015, nach Seehöhe")
-ordipointlabel(be.sc, display="sites", add=TRUE)
+ordipointlabel(be.sc, display="centroids", add=TRUE)
+plot(TukeyHSD(be.sc))
 
 ### Gesamter Datensatz, nach Seehöhe und Geologie
 #################################################
 
-ad <- adonis(dis ~ msm * geology, hh, method = 'jaccard', permutations = 999, strata=hh$msm)
+ad <- adonis(dis ~ msm * geology, hh, method = 'jaccard', permutations = 999, strata=hh$geology)
 ad
-be <- betadisper(dis, hh$msm)
+be <- betadisper(dis, hh$msm, bias.adjust = TRUE)
 be
 plot(be, main = "Gesamter Datensatz, nach Seehöhe")
 ordipointlabel(be, display="centroids", add=TRUE)
+boxplot(be, main="Distanz zum Zentroid, gesamter Datensatz, gruppiert nach Seehöhe", xlab="Seehöhe")
+plot(TukeyHSD(be))
 
 ### Gesamter Datensatz, nach Jahren, Geologie und Seehöhe
 #########################################################
 
-ad.year <- adonis(dis ~ year_releve * geology * msm, hh, method = 'jaccard', permutations = 5000, strata=hh$msm)
-ad.year
-be.year <- betadisper(dis, hh$year_releve)
+ad.year.msm <- adonis(dis ~ year_releve * geology * msm, hh, method = 'jaccard', permutations = 999, strata=hh$msm)
+ad.year.msm
+
+ad.year.geo <- adonis(dis ~ year_releve * geology * msm, hh, method = 'jaccard', permutations = 999, strata=hh$geology)
+ad.year.geo
+
+be.year <- betadisper(dis, hh$year_releve, bias.adjust = TRUE)
 be.year
-plot(be.year, main = "Gesamter Datensatz, nach Jahren")
+plot(be.year, main = "Gesamter Datensatz, nach Jahren", hull = TRUE)
 ordipointlabel(be.year, display="centroids", add=TRUE)
 
-be.sb.year <- betadisper(dis.sb, hh.sb$year_releve)
+tu.be.year <- TukeyHSD(be.year, ordered = TRUE)
+plot(tu.be.year)
+
+
+be.sb.year <- betadisper(dis.sb, hh.sb$year_releve, bias.adjust = TRUE)
 be.sb.year
 plot(be.sb.year, main = "Almprojekt 1993 - 1996, nach Jahren")
 ordipointlabel(be.sb.year, display="centroids", add=TRUE)
